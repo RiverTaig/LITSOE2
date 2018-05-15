@@ -1,0 +1,1342 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ESRI.ArcGIS.SOESupport</name>
+    </assembly>
+    <members>
+        <member name="T:ESRI.ArcGIS.SOESupport.AddInPackageAttribute">
+            <summary>
+            AddIn package attribute. Use it do annotate an addIn package from your assembly.
+            IMPORTANT: You can have multiple assemblies in your AddIn package,
+            please use AddInPackageAttribute only once per AddIn, not once per assembly!
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.AddInPackageAttribute.#ctor(System.String,System.String)">
+            <summary>
+            AddIn package attribute constructor. 
+            IMPORTANT: You can have multiple assemblies in your AddIn package,
+            please use AddInPackageAttribute only once per package, not once per assembly!
+            </summary>
+            <param name="name">The name of the add-in package.</param>
+            <param name="id">Unique ID of the package. This is a GUID in a registry format.</param>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.AddInPackageAttribute.Name">
+            <summary>
+            The name of the add-in package.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.AddInPackageAttribute.ID">
+            <summary>
+            Unique ID of the package. This is a GUID in registry format.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.AddInPackageAttribute.Description">
+            <summary>
+            Package description.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.AddInPackageAttribute.Version">
+            <summary>
+            Package version.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.AddInPackageAttribute.Author">
+            <summary>
+            Package author.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.AddInPackageAttribute.Company">
+            <summary>
+            A company or entity that developed this package.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.AddInPackageAttribute.Date">
+            <summary>
+            Packaging date.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.AddInPackageAttribute.TargetProduct">
+            <summary>
+            Target product for the add-in. Usually set to 'Server'.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.AddInPackageAttribute.TargetVersion">
+            <summary>
+            Target product's version. For example, '10.4'.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:ESRI.ArcGIS.SOESupport.ArcGISCoCreatableAttribute" -->
+        <member name="M:ESRI.ArcGIS.SOESupport.ArcGISCoCreatableAttribute.#ctor">
+            <summary>
+            ArcGISCoCreatableAttribute constructor has no parameters.
+            </summary>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.ServerObjectExtensionAttribute">
+            <summary>
+            Use ServerObjectExtension attribute to annotate main SOE class that implements IServerObjectExtension.
+            An Add-in package can have multiple ServerObjectExtension classes but it is not recommended.
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.ServerObjectExtensionAttribute.#ctor(System.String)">
+            <summary>
+            ServerObjectExtension attribute constructor. 
+            </summary>
+            <param name="serverobject">Type of the server object that this SOE was designed for. Example: 'MapServer'.</param>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.ServerObjectExtensionAttribute.DisplayName">
+            <summary>
+            SOE display name that you will see in Manager or other admin client.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.ServerObjectExtensionAttribute.Description">
+            <summary>
+            SOE description.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.ServerObjectExtensionAttribute.DefaultCapabilities">
+            <summary>
+            Default set of web capabilities in comma-separated list. Subset of AllCapabilities.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.ServerObjectExtensionAttribute.AllCapabilities">
+            <summary>
+            All web capabilities in a comma-separated list.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.ServerObjectExtensionAttribute.SupportsREST">
+            <summary>
+            Shows that SOE supports REST API. Default is false.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.ServerObjectExtensionAttribute.SupportsSOAP">
+            <summary>
+            Shows that SOE supports SOAP API. Default is false.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.ServerObjectExtensionAttribute.Properties">
+            <summary>
+            SOE properties.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.ServerObjectExtensionAttribute.ServerObjectType">
+            <summary>
+            Type of the server object that this SOE was designed for. Example: 'MapServer'.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.ServerObjectExtensionAttribute.HasManagerPropertiesConfigurationPane">
+            <summary>
+            Set this flag to true if you have custom JS widged for the SOE properties pane in Manager.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.ServerObjectExtensionAttribute.SOAPNamespaceURI">
+             <summary>
+             Sets SOAP namespace URI for the add-in configuration.
+             </summary>
+             <example>
+             This example shows how to define SOAP namespace URI for SOE.
+             <code>
+            [ComVisible(true)]
+            [Guid("ff21a501-5eb9-406a-aab1-29389d25b868")]
+            [ClassInterface(ClassInterfaceType.None)]
+            [ServerObjectExtension("MapServer",
+                AllCapabilities = "GetInfo,FindFeatures,DemoCustomObject,DemoArrayOfCustomObjects",
+                DefaultCapabilities = "GetInfo,DemoCustomObject,DemoArrayOfCustomObjects",
+                    Description = ".NET Find Near Features SOAP SOE Sample",
+                    DisplayName = ".NET Find Near Features Soap SOE",
+                    Properties = "",
+                    SupportsREST = false,
+                    SupportsSOAP = true,
+                    SOAPNamespaceURI = "http://examples.esri.com/schemas/NetFindNearFeaturesSoapSOE/1.0")]
+             </code>
+             </example>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.ServerObjectInterceptorAttribute">
+            <summary>
+            Use ServerObjectInterceptor attribute to annotate main SOI class.
+            An Add-in package can have multiple ServerObjectInterceptor classes but it is not recommended.
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.ServerObjectInterceptorAttribute.#ctor(System.String)">
+            <summary>
+            ServerObjectInterceptorAttribute constructor. 
+            </summary>
+            <param name="serverobject">Type of the server object that this SOI was designed for. Example: 'MapServer'.</param>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.ServerObjectInterceptorAttribute.DisplayName">
+            <summary>
+            SOI display name that you will see in Manager or other admin client.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.ServerObjectInterceptorAttribute.Description">
+            <summary>
+            SOI description.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.ServerObjectInterceptorAttribute.Properties">
+            <summary>
+            SOI properties. List of name=value string pairs in a semicolon-separated list. name=value;name1=value1
+            </summary>
+            <example>
+            This example shows how to define SOI properties.
+            <code>
+                    [ServerObjectExtension("MapServer",
+                    AllCapabilities = "",
+                    DefaultCapabilities = "",
+                    Description = ".NET Simple REST SOE With Properties",
+                    DisplayName = ".NET Simple REST SOE With Properties",
+                    Properties = "layerType=feature;returnFormat=json;maxNumFeatures=100;isEditable=false",
+                    HasManagerPropertiesConfigurationPane = false,
+                    SupportsREST = true,
+                    SupportsSOAP = false)]
+                public class NetSimpleRESTSOEWithProperties : IServerObjectExtension, IObjectConstruct, IRESTRequestHandler
+            </code>
+            </example>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.ServerObjectInterceptorAttribute.ServerObjectType">
+            <summary>
+            Type of the server object that this SOE was designed for. Example: 'MapServer'.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.ServerObjectInterceptorAttribute.HasManagerPropertiesConfigurationPane">
+            <summary>
+            Set this flag to true if you have custom JS widget for the SOE properties pane in Manager. See ServerSimpleRESTSOEWithProperties SDK sample for details.
+            </summary>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.Conversion">
+            <summary>
+            Conversion class provides a set of static methods to convert a JSON string into a geometry and back..
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.Conversion.ToGeometry(System.String,ESRI.ArcGIS.Geometry.esriGeometryType)">
+            <summary>
+            Converts a JSON string into an ArcObjects geometry.
+            </summary>
+            <param name="json">The input JSON string.</param>
+            <param name="geometryType">The type of geometry to convert to.</param>
+            <returns>The ArcObject geometry instance or null if the conversion can't be performed.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.Conversion.ToSpatialReference(System.String)">
+            <summary>
+            Converts a JSON string into an ArcObjects spatial reference
+            </summary>
+            <param name="json"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.Conversion.ToGeometry(ESRI.ArcGIS.SOESupport.JsonObject,ESRI.ArcGIS.Geometry.esriGeometryType)">
+            <summary>
+            Converts a JsonObject into an ArcObjects geometry.
+            </summary>
+            <param name="jsonGeometry">The JsonObject to convert</param>
+            <param name="geometryType">The type of geometry to convert to.</param>
+            <returns>The ArcObject geometry or null if the conversion can't be performed.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.Conversion.ToJson(ESRI.ArcGIS.Geometry.IGeometry)">
+            <summary>
+            Converts an ArcObjects geometry to a JSON UTF-8 string (and returns it an array of bytes).
+            </summary>
+            <param name="geometry">The ArcObjects geometry to convert to JSON.</param>
+            <returns>The JSON string (UTF-8) as an array of bytes.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.Conversion.ToJsonObject(ESRI.ArcGIS.Geometry.IGeometry)">
+            <summary>
+            Converts an ArcObjects geometry to a JsonObject.
+            </summary>
+            <param name="geometry">The ArcObjects geometry to convert.</param>
+            <returns>The resulting JsonObject.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.Conversion.ToJson(ESRI.ArcGIS.Geometry.IGeometry,System.Boolean)">
+            <summary>
+            Converts an ArcObjects geometry to a JSON UTF-8 string (and returns it an array of bytes).
+            </summary>
+            <param name="geometry">The ArcObjects geometry to convert to JSON.</param>
+            <param name="writeSpRef">Set to true to include spatial reference.</param>
+            <returns>The JSON string (UTF-8) as an array of bytes.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.Conversion.ToJsonObject(ESRI.ArcGIS.Geometry.IGeometry,System.Boolean)">
+            <summary>
+            Converts an ArcObjects geometry to a JsonObject.
+            </summary>
+            <param name="geometry">The ArcObjects geometry to convert.</param>
+            <param name="writeSpRef">Set to true to include spatial reference.</param>
+            <returns>The resulting JsonObject.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.Conversion.ToJson(ESRI.ArcGIS.Geodatabase.IRecordSet)">
+            <summary>
+            Converts an ArcObjects RecordSet to a JSON UTF-8 string (and returns it as an array of bytes).
+            The geometries in each Record will be generalized and densified, before they are serialized to JSON.
+            </summary>
+            <param name="recordset">The RecordSet to convert.</param>
+            <returns>The JSONN string (UTF-8) as an array of bytes.</returns>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.JsonObject">
+            <summary>
+            A class that represents a JSON object.
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.#ctor">
+            <summary>
+            Creates an empty JsonObject.
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.#ctor(System.String)">
+            <summary>
+            Creates a JsonObject instance by deserializing a JSON string.
+            </summary>
+            <param name="json">The json document to deserailize</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.Exists(System.String)">
+            <summary>
+            Indicates if the a member with the given name exists in the JsonObject.
+            </summary>
+            <param name="name">The member name to look for.</param>
+            <returns>True if the member is found, False if it isn't.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.IsNull(System.String)">
+            <summary>
+            Indicates if the member with the given name is null. ArgumentOutOfRangeException will be thrown if the member doesn't exist in the JsonObject.
+            </summary>
+            <param name="name">The name of the member to look for.</param>
+            <returns>True if the member is found, False if it isn't.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.AddObject(System.String,System.Object)">
+            <summary>
+            Adds a object as a new member of the JsonObject. Use this method to add arrays of value types (e.g. double[]).
+            </summary>
+            <param name="name">The name of the new member.</param>
+            <param name="value">The object to be added.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.AddArray(System.String,System.Object[])">
+            <summary>
+            Adds an object array as a new member of the JsonObject.
+            </summary>
+            <param name="name">The name of the new member.</param>
+            <param name="objectArray">The array to be added.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.AddJsonObject(System.String,ESRI.ArcGIS.SOESupport.JsonObject)">
+            <summary>
+            Adds a JsonObject as a new member of the JsonObject.
+            </summary>
+            <param name="name">The name of the new member.</param>
+            <param name="jo">The JsonObject to be added.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.AddDate(System.String,System.DateTime)">
+            <summary>
+            Adds a date as a new member of the JsonObject.
+            </summary>
+            <param name="name">The name of the new member.</param>
+            <param name="dateTime">The date to be added.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.AddBoolean(System.String,System.Boolean)">
+            <summary>
+            Adds a boolean as a new member of the JsonObject.
+            </summary>
+            <param name="name">The name of the new member.</param>
+            <param name="value">The boolean value to be added.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.AddLong(System.String,System.Int64)">
+            <summary>
+            Adds a long as a new member of the JsonObject.
+            </summary>
+            <param name="name">The name of the new member.</param>
+            <param name="value">The long value to be added.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.AddDouble(System.String,System.Double)">
+            <summary>
+            Adds a double as a new member of the JsonObject.
+            </summary>
+            <param name="name">The name of the new member.</param>
+            <param name="value">The double value to be added.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.AddString(System.String,System.String)">
+            <summary>
+            Adds a string as a new member of the JsonObject.
+            </summary>
+            <param name="name">The name of the new member.</param>
+            <param name="value">The string to be added.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.TryGetAsDate(System.String,System.Nullable{System.DateTime}@)">
+            <summary>
+            Returns the value of the member with the given name cast to a date.
+            </summary>
+            <param name="name">The name of the member to return a date for.</param>
+            <param name="dateTime">The value of the member cast to a date or null.</param>
+            <returns>True if the member was found and its value can be cast to a date. False otherwise.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.TryGetArray(System.String,System.Object[]@)">
+            <summary>
+            Returns the array for the member with the given name.
+            </summary>
+            <param name="name">The name of the member that contains the array.</param>
+            <param name="objectArray">The array being returned or null.</param>
+            <returns>True if the member was found and its value is an array or null. False otherwise.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.TryGetObject(System.String,System.Object@)">
+            <summary>
+            Returns the object value of the member with the given name.
+            </summary>
+            <param name="name">The name of the member to return.</param>
+            <param name="value">The object being returned or null.</param>
+            <returns>True if the member was found (even if its value is null). False otherwise.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.TryGetJsonObject(System.String,ESRI.ArcGIS.SOESupport.JsonObject@)">
+            <summary>
+            Returns the JsonObject value of the member with the given name.
+            </summary>
+            <param name="name">The name of the member to return.</param>
+            <param name="jsonObject">The JsonObject being returned or null.</param>
+            <returns>True if the member was found (even if its value is null). False otherwise.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.TryGetAsBoolean(System.String,System.Nullable{System.Boolean}@)">
+            <summary>
+            Returns the value of the member with the given name cast to a bool.
+            </summary>
+            <param name="name">The name of the member to return.</param>
+            <param name="value">The value of the member cast to a bool or null.</param>
+            <returns>True if the member was found and can be cast to a bool. False otherwise.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.TryGetAsLong(System.String,System.Nullable{System.Int64}@)">
+            <summary>
+            Returns the value of the member with the given name cast to a long.
+            </summary>
+            <param name="name">The name of the member to return.</param>
+            <param name="value">The value of the member cast to a long or null.</param>
+            <returns>True if the member was found and can be cast to a long. False otherwise.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.TryGetAsDouble(System.String,System.Nullable{System.Double}@)">
+            <summary>
+            Returns the value of the member with the specified name cast to a double.
+            </summary>
+            <param name="name">The name of the member to return.</param>
+            <param name="value">The value of the member cast to a double or null.</param>
+            <returns>True if the member was found and can be cast to a double. False otherwise.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.TryGetString(System.String,System.String@)">
+            <summary>
+            Returns the string value of the member with the specified name.
+            </summary>
+            <param name="name">The name of the member to return.</param>
+            <param name="value">The string being returned. It may be null.</param>
+            <returns>True if the string-typed member was found (even if its value is null). False otherwise.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.Delete(System.String)">
+            <summary>
+            Deletes the member identified with the specified name.
+            </summary>
+            <param name="name">The name of the member to delete.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.ToJson">
+            <summary>
+            Writes the JsonObject to a JSON string.
+            </summary>
+            <returns>The JSON string.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the JsonObject members (Members are of type KeyValuePair&lt;string, object&gt;)
+            </summary>
+            <returns>IEnumerator</returns>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.JsonObject.Count">
+            <summary>
+            Returns the number of members the JsonObject has.
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.JsonMemberEnumerator.MoveNext">
+            <summary>
+            Advances the enumerator to the next element in the collection.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.JsonObject.JsonMemberEnumerator.Reset">
+            <summary>
+            Sets the enumerator to its initial position, which is before the first element in the collection.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.JsonObject.JsonMemberEnumerator.Current">
+            <summary>
+            Gets the current element in the collection.
+            </summary>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.RestOperation">
+            <summary>
+            A class that represents a REST operation.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.RestOperation.name">
+            <summary>
+            The name of the operation.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.RestOperation.parameters">
+            <summary>
+            The parameters for the operation.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.RestOperation.supportedOutputFormats">
+            <summary>
+            The output formats supported by an operation (e.g. "json").
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.RestOperation.postOnly">
+            <summary>
+            Indicates if the operation should be supported only for HTTP POST requests (not GET).
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.RestOperation.#ctor(System.String,System.String[],System.String[],ESRI.ArcGIS.SOESupport.OperationHandler)">
+            <summary>
+            Creates a new RestOperation instance.
+            </summary>
+            <param name="name">The name of the operation.</param>
+            <param name="parameters">The parameters for the operation.</param>
+            <param name="supportedFormats">The output formats supported by the operation (e.g. "json").</param>
+            <param name="handler">The operation handler function that should be called when requests for this operation are received.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.RestOperation.#ctor(System.String,System.String[],System.String[],ESRI.ArcGIS.SOESupport.OperationHandler,System.Boolean)">
+            <summary>
+            Creates a new RestOperation instance.
+            </summary>
+            <param name="name">The name of the operation.</param>
+            <param name="parameters">The parameters for the operation.</param>
+            <param name="supportedFormats">The output formats supported by the operation (e.g. "json").</param>
+            <param name="handler">The operation handler function that should be called when requests for this operation are received.</param>
+            <param name="postOnly">Indicates if the operation should be supported only for HTTP POST requests (not GET).</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.RestOperation.#ctor(System.String,System.String[],System.String[],ESRI.ArcGIS.SOESupport.OperationHandler,System.String)">
+            <summary>
+            Creates a new RestOperation instance.
+            </summary>
+            <param name="name">The name of the operation.</param>
+            <param name="parameters">The parameters for the operation.</param>
+            <param name="supportedFormats">The output formats supported by the operation (e.g. "json").</param>
+            <param name="handler">The operation handler function that should be called when requests for this operation are received.</param>
+            <param name="requiredCapability">The capability required in a configuration for an operation to be executable.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.RestOperation.#ctor(System.String,System.String[],System.String[],ESRI.ArcGIS.SOESupport.OperationHandler,System.String,System.Boolean)">
+            <summary>
+            Creates a new RestOperation instance.
+            </summary>
+            <param name="name">The name of the operation.</param>
+            <param name="parameters">The parameters for the operation.</param>
+            <param name="supportedFormats">The output formats supported by the operation (e.g. "json").</param>
+            <param name="handler">The operation handler function that should be called when requests for this operation are received.</param>
+            <param name="requiredCapability">The capability required in a configuration for an operation to be executable.</param>
+            <param name="postOnly">Indicates if the operation should be supported only for HTTP POST requests (not GET).</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.RestOperation.ToJsonObject">
+            <summary>
+            Converts the RestOperation to a JsonObject instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.RestOperation.RequiredCapability">
+            <summary>
+            The capability required in a configuration for an operation to be executable.
+            </summary>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.RestResponseProperties">
+            <summary>
+            A class that helps generating the responseProperties string for a resource or operation.
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.RestResponseProperties.#ctor">
+            <summary>
+            RestResponseProperties constructor. Sets content type to "text/plain;charset=utf-8"
+            Sets data type to esriWebResponseDataType.esriWRDTPayload
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.RestResponseProperties.ToString">
+            <summary>
+            Generates a comma-separated list of properties to be returned to the http handler
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.RestResponseProperties.ContentType">
+            <summary>
+            Defines the value of the Content-Type http header. Default value is "text/plain;charset=utf-8" (valid for JSON)
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.RestResponseProperties.IsError">
+            <summary>
+            Indicates if an error happened when processing a request. Some properties may not be written if that is the case.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.RestResponseProperties.ResponseDataType">
+            <summary>
+            Indicates if the response is sent embedded to the http handler (esriWRDTPayload, the default), or if a file is written in an output directory and the http handler should pick it up from there (esriWRDTFileToReturn)
+            </summary>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.OperationHandler">
+            <summary>
+            A delegate type that defines the signature for REST operation handler functions.
+            </summary>
+            <param name="boundVariables">A collection of the IDs of sub-resources in collection resources (e.g. The bound variable "LayersID" for a collection resource called "Layers" contains the ID of the sub-resource.)</param>
+            <param name="operationInput">A JsonObject instance with the input for the operation.</param>
+            <param name="outputFormat">The requested output format, for example "json".</param>
+            <param name="requestProperties">Well-known properties of the request.</param>
+            <param name="responseProperties">Well-known properties for the response.</param>
+            <returns></returns>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.ResourceHandler">
+            <summary>
+            A delegate type that defines the signature for REST resource handler functions.
+            </summary>
+            <param name="boundVariables">A collection of the IDs of sub-resources in collection resources (e.g. The bound variable "LayersID" for a collection resource called "Layers" contains the ID of the sub-resource.)</param>
+            <param name="outputFormat">The requested output format, for example "json".</param>
+            <param name="requestProperties">Well-known properties for the request.</param>
+            <param name="responseProperties">Well-known properties for the response.</param>
+            <returns></returns>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.CheckCapabilityHandler">
+            <summary>
+            A delegate type that defines capability checking callback.
+            </summary>
+            <param name="configCapabilities">Configuration capabilities passed with the request</param>
+            <param name="requiredCapability">Capabilities defined for the given resource/operation</param>
+            <returns></returns>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.ResourceOrOperationNotFoundException">
+            <summary>
+            ResourceOrOperationNotFoundException is thrown when a resource or an operation is not found.
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.ResourceOrOperationNotFoundException.#ctor(System.String)">
+            <summary>
+            ResourceOrOperationNotFoundException is thrown when a resource or an operation is not found.
+            </summary>
+            <param name="msg">Custom exception message</param>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.CapabilityNotEnabledException">
+            <summary>
+            CapabilityNotEnabledException is thrown user tries to access a resource or an operation that is disabled by current capabilities.
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.CapabilityNotEnabledException.#ctor(System.String)">
+            <summary>
+            CapabilityNotEnabledException is thrown user tries to access a resource or an operation that is disabled by current capabilities.
+            </summary>
+            <param name="msg">Custom exception message</param>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.RestResource">
+            <summary>
+            A class that represents a REST resource.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.RestResource.operations">
+            <summary>
+            The operations supported by the resource.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.RestResource.resources">
+            <summary>
+            The children resources of the resource.
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.RestResource.#ctor(System.String,System.Boolean,ESRI.ArcGIS.SOESupport.ResourceHandler)">
+            <summary>
+            Creates a new RestResource instance.
+            </summary>
+            <param name="name">The name of the resource.</param>
+            <param name="isCollection">Indicates if the resource is a collection.</param>
+            <param name="handler">The resource handler function that should be called when requests for this resource are received.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.RestResource.#ctor(System.String,System.Boolean,ESRI.ArcGIS.SOESupport.ResourceHandler,System.String)">
+            <summary>
+            Creates a new RestResource instance.
+            </summary>
+            <param name="name">The name of the resource.</param>
+            <param name="isCollection">Indicates if the resource is a collection.</param>
+            <param name="handler">The resource handler function that should be called when requests for this resource are received.</param>
+            <param name="requiredCapability">The capability required in a configuration for this resource to be callable.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.RestResource.#ctor(System.String,System.Boolean,System.Boolean,ESRI.ArcGIS.SOESupport.ResourceHandler)">
+            <summary>
+            Creates a new RestResource instance.
+            </summary>
+            <param name="name">The name of the resource.</param>
+            <param name="isCollection">Indicates if the resource is a collection.</param>
+            <param name="isDefaultCollection">Indicates if the resource is a default collection.</param>
+            <param name="handler">The resource handler function that should be called when requests for this resource are received.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.RestResource.#ctor(System.String,System.Boolean,System.Boolean,ESRI.ArcGIS.SOESupport.ResourceHandler,System.String)">
+            <summary>
+            Creates a new RestResource instance.
+            </summary>
+            <param name="name">The name of the resource.</param>
+            <param name="isCollection">Indicates if the resource is a collection.</param>
+            <param name="isDefaultCollection">Indicates if the resource is a default collection.</param>
+            <param name="handler">The resource handler function that should be called when requests for this resource are received.</param>
+            <param name="requiredCapability">The capability required in a configuration for this resource to be callable.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.RestResource.ToJsonObject">
+            <summary>
+            Converts the resource into a JsonObject instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.RestResource.name">
+            <summary>
+            The name of the resource.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.RestResource.isCollection">
+            <summary>
+            Indicates if the resource is a collection.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.RestResource.isDefaultCollection">
+            <summary>
+            Indicates if the resource is a default collection. 
+            Default collection is a collection resource that can allows collection item access by a short URL.
+            For example: if we have 'layers' resource, it's usually allows item access by this URL:
+            &lt;base url&gt;/layers/&lt;itemID&gt;
+            If you make it a default collection, you will be able to access it by the short URL:
+            &lt;base url&gt;/&lt;itemID&gt;
+            There can only be one default collection per set of siblings.
+            For example: if we have two siblings &lt;base url&gt;/layers and &lt;base url&gt;/tables,
+            only one can be a default collection.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.RestResource.RequiredCapability">
+            <summary>
+            The capability required in a configuration for a resource to be callable.
+            </summary>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.ServerLogger">
+            <summary>
+            A class used to add messages to the server's log.
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.ServerLogger.#ctor">
+            <summary>
+            Creates a new instance of the logger.
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.ServerLogger.LogMessage(ESRI.ArcGIS.SOESupport.ServerLogger.msgType,System.String,System.Int32,System.String)">
+            <summary>
+            Logs a message.
+            </summary>
+            <param name="msgType">The log level for the message.</param>
+            <param name="methodName">The name of the method writing this message.</param>
+            <param name="msgCode">A unique identifier for the message.</param>
+            <param name="msg">The message to be written to the log.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.ServerLogger.LogMessage(ESRI.ArcGIS.SOESupport.ServerLogger.msgType,System.String,System.Int32,System.Double,System.String)">
+            <summary>
+            Logs a message.
+            </summary>
+            <param name="msgType">The log level for the message.</param>
+            <param name="methodName">The name of the method writing this message.</param>
+            <param name="msgCode">A unique identifier for the message.</param>
+            <param name="elapsed">The number of seconds elapsed.</param>
+            <param name="msg">The message to be written to the log.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.ServerLogger.LogRequest(System.String,System.String)">
+            <summary>
+            Logs the fact that a request has been received.
+            </summary>
+            <param name="methodName">The name of the method being invoked.</param>
+            <param name="request">The actual request. Its size will be logged.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.ServerLogger.LogResponse(System.String,System.String,System.Double)">
+            <summary>
+            Logs the fact that a response is being sent back to the client.
+            </summary>
+            <param name="methodName">The name of the method.</param>
+            <param name="response">The actual response. Its size will be logged.</param>
+            <param name="elapsed">The number of seconds it took to execute the method.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.ServerLogger.LogResponse(System.String,System.Byte[],System.Double)">
+            <summary>
+            Logs a message.
+            </summary>
+            <param name="methodName">The name of the method writing this message.</param>
+            <param name="response">The actual response. Its size will be logged.</param>
+            <param name="elapsed">The number of seconds elapsed.</param>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.ServerLogger.msgType">
+            <summary>
+            The log level for a log message.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.ServerLogger.msgType.error">
+            <summary>
+            Error level.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.ServerLogger.msgType.warning">
+            <summary>
+            Warning level.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.ServerLogger.msgType.infoSimple">
+            <summary>
+            Simple info level.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.ServerLogger.msgType.infoStandard">
+            <summary>
+            Standard info level.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.ServerLogger.msgType.infoDetailed">
+            <summary>
+            Detailed info level.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.ServerLogger.msgType.debug">
+            <summary>
+            Debug level. Everything is logged.
+            </summary>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.AutoTimer">
+            <summary>
+            A class that can be used to measure time.
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.AutoTimer.#ctor">
+            <summary>
+            Creates and starts a timer
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.AutoTimer.Finalize">
+            <summary>
+            AutoTimer destructor stops timer.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.AutoTimer.Elapsed">
+            <summary>
+            Returns the elapsed seconds since the timer was created
+            </summary>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.SOI.SoapBinaryRequest">
+            <summary>
+            The SoapBinaryRequest class represents binary SOAP request and provides property Body to access the request body.
+            </summary>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.SOI.SoapRequest">
+            <summary>
+            Abstract base class representing SOAP request.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.SOI.SoapBinaryRequest.Body">
+            <summary>
+            This property provides full access to the SOAP request binary content.
+            </summary>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.SOI.SoapRequestFactory">
+            <summary>
+            The SoapRequestFactory class is a factory class for the SoapRequest instances. It provides convenient way to convert an instance of IMessage to an instance of SoapRequest.
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SOI.SoapRequestFactory.Create(ESRI.ArcGIS.SOESupport.SOI.SoapRequestType,ESRI.ArcGIS.esriSystem.IMessage)">
+            <summary>
+            The Create method is static. Use it to create SoapRequest of a given type from the IMessage reference.
+            </summary>
+            <param name="requestType">Desired request type.</param>
+            <param name="inRequest">Source request as IMessage</param>
+            <returns></returns>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.SOI.SoapRequestType">
+            <summary>
+            The SoapRequestType enum represents SOAP request type. It has two possible values: Xml or Binary.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.SOI.SoapRequestType.Xml">
+            <summary>
+            Xml SOAP request.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.SOI.SoapRequestType.Binary">
+            <summary>
+            Binary SOAP request.
+            </summary>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.SoapCapabilities">
+            <summary>
+            A class that helps define the capabilities required to execute methods in a SOAP SOE.
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SoapCapabilities.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SoapCapabilities.AddMethod(System.String,System.String)">
+            <summary>
+            Adds a method to the SoapCapabilities instance, defining the required capability in order to allow its execution
+            </summary>
+            <param name="methodName">The name of the method</param>
+            <param name="requiredCapability">The capability required to allow execution</param>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.SoeSoapImpl">
+            <summary>
+            An "implementation" helper class that can be contained by SOAP SOEs.
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SoeSoapImpl.#ctor(System.String,ESRI.ArcGIS.SOESupport.SoeSoapImpl.HandleSoapMessage)">
+            <summary>
+            Creates a SoeSoapImpl given the SOE name and the function that will handle messages. No capabilities will be enforced.
+            </summary>
+            <param name="soeName">The name of the SOE</param>
+            <param name="HandleSoapMessage">The function that handles messages</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SoeSoapImpl.#ctor(System.String,ESRI.ArcGIS.SOESupport.SoapCapabilities,ESRI.ArcGIS.SOESupport.SoeSoapImpl.HandleSoapMessage)">
+            <summary>
+            Creates a SoeSoapImpl instance given the SOE name, the capabilities to enforce, and the function that will handle messages.
+            </summary>
+            <param name="soeName">The name of the SOE</param>
+            <param name="soapCaps">An object defining the capabilities required for each method</param>
+            <param name="HandleSoapMessage">The function that handles messages</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SoeSoapImpl.HandleBinaryRequest(System.Byte[]@)">
+            <summary>
+            This method implements IRequestHandler2.HandleBinaryRequest
+            </summary>
+            <param name="request">The request contents</param>
+            <returns>The request response</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SoeSoapImpl.HandleBinaryRequest2(System.String,System.Byte[]@)">
+            <summary>
+            This method implements IRequestHandler2.HandleBinaryRequest2
+            </summary>
+            <param name="capabilities">Current capabilities</param>
+            <param name="request">The request contents</param>
+            <returns>The request response</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SoeSoapImpl.HandleStringRequest(System.String,System.String)">
+            <summary>
+            This method implements IRequestHandler2.HandleStringRequest
+            </summary>
+            <param name="capabilities">Current capabilities</param>
+            <param name="request">The request string</param>
+            <returns>The request response string</returns>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.SoeSoapImpl.HandleSoapMessage">
+            <summary>
+            The definition of the signature for the function that handles messages.
+            </summary>
+            <param name="reqMsg">The request message</param>
+            <param name="respMsg">The response message</param>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.SerializableList`1">
+            <summary>
+            Base class for collection of T, where T is a class that implements IXMLSerialize
+            </summary>
+            <typeparam name="T">Type of the class that implements IXMLSerialize</typeparam>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SerializableList`1.#ctor">
+            <summary>
+            Default constructor provided for an automatic deserialization by the ArcObjects. 
+            If you use it, you also must set NamespaceURI property to a correct value.
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SerializableList`1.#ctor(System.String)">
+            <summary>
+            SerializableList constructor. 
+            </summary>
+            <param name="namespaceURI">XML namespace URI</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SerializableList`1.Deserialize(ESRI.ArcGIS.esriSystem.IXMLSerializeData)">
+            <summary>
+            Deserialize method converts XML to list. 
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SerializableList`1.Serialize(ESRI.ArcGIS.esriSystem.IXMLSerializeData)">
+            <summary>
+            Serialize method converts list to XML. XML typename is set to 'ArrayOf'+itemType.
+            Example: ArrayOfString
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.SerializableList`1.NamespaceURI">
+            <summary>
+            Namespace URI. For example, http://examples.esri.com/schemas/MySOAPSOE/1.0
+            </summary>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.SoeRestImpl">
+            <summary>
+            An "implementation" helper class that can be contained by REST SOEs.
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SoeRestImpl.#ctor(System.String,ESRI.ArcGIS.SOESupport.RestResource)">
+            <summary>
+            Creates an instance of SoeRestImpl. Capability checking is set to default(looks for an item in comma-separated list, uses case-insensitive comparizon).
+            </summary>
+            <param name="soeName">The name of the Server Object Extension (SOE).</param>
+            <param name="rootResource">A reference to the REST SOE's root resource.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SoeRestImpl.#ctor(System.String,ESRI.ArcGIS.SOESupport.RestResource,ESRI.ArcGIS.SOESupport.CheckCapabilityHandler)">
+            <summary>
+            Creates an instance of SoeRestImpl.
+            </summary>
+            <param name="soeName">The name of the Server Object Extension (SOE).</param>
+            <param name="rootResource">A reference to the REST SOE's root resource.</param>
+            <param name="checkCaps">A reference to the capability checking delegate. If you pass null, capability checking will be disabled.</param>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.RestErrorException">
+            <summary>
+            TODO summary
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.RestErrorException.#ctor(System.String)">
+            <summary>
+            TODO
+            </summary>
+            <param name="msg"></param>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.SOI.RESTPreFilterHandler">
+            <summary>
+            REST pre-filter handler definition.
+            </summary>
+            <param name="inputParams"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.SOI.RESTPostFilterHandler">
+            <summary>
+            REST post-filter handler definition.
+            </summary>
+            <param name="inputParams"></param>
+            <param name="responseBytes"></param>
+            <param name="responseProperties"></param>
+            <param name="newResponseProperties"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.SOI.RestFilter">
+            <summary>
+            The RestFilter class holds pre-filter and post-filter delegates for the REST request.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.SOI.RestFilter.Operation">
+            <summary>
+            The Operation property contains unique ID of the REST resource or operation.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:ESRI.ArcGIS.SOESupport.SOI.RestFilter.PreFilter" -->
+        <member name="P:ESRI.ArcGIS.SOESupport.SOI.RestFilter.PostFilter">
+             <summary>
+             The PostFilter delegate must be called after calling intercepted HandleRESTRequest. It modifies REST handler response.
+             </summary>
+             <example> This example shows simple post-filter method.
+             <code>
+            private byte[] PostFilterRootLegend ( RestRequestParameters restInput, byte[] originalResponse )
+            {
+              if (null == _authorizedLayerSet)
+                 return null;
+              return MyCustomLegend(restInput, originalResponse);
+            }
+            </code>
+             </example>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.SOI.RestHandlerOpCode">
+            <summary>
+            The RestHandlerOpCode class contains common REST request codes for the Map Server.
+            The main benefit of using class instead of enum is to allow developers to add more opCodes in the derived types.
+            See LayerAccess SOI source for an example of custom REST request codes.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.SOI.RestHandlerOpCode.DefaultNoOp">
+            <summary>
+            The DefaultNoOp REST request code must be used when REST request filtering code could not match any other RestHandlerOpCode to the REST request.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.SOI.RestHandlerOpCode.Root">
+            <summary>
+            The Root code matches the REST root resource.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.SOI.RestHandlerOpCode.RootFind">
+            <summary>
+            The RootFind code matches 'find' operation on REST root resource.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.SOI.RestHandlerOpCode.RootIdentify">
+            <summary>
+            The RootIdentify code matches 'identify' operation on REST root resource.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.SOI.RestHandlerOpCode.RootExport">
+            <summary>
+            The RootExport code matches 'export' operation on REST root resource.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.SOI.RestHandlerOpCode.RootGenerateKml">
+            <summary>
+            The RootGenerateKml code matches 'generateKml' operation on REST root resource.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.SOI.RestHandlerOpCode.RootLayers">
+            <summary>
+            The RootLayers code matches 'layers' sub-resource.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.SOI.RestHandlerOpCode.RootLegend">
+            <summary>
+            The RootLegend code matches 'legend' sub-resource.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.SOI.RestHandlerOpCode.LayerRoot">
+            <summary>
+            The LayerRoot code matches '/layers/{id}/ sub-resource.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.SOI.RestHandlerOpCode.LayerGenerateRenderer">
+            <summary>
+            The LayerGenerateRenderer code matches '/layers/{id}/generateRenderer' operation.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.SOI.RestHandlerOpCode.LayerQuery">
+            <summary>
+            The LayerQuery code matches 'layers/{id}/query' operation.
+            </summary>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.SOI.RestHandlerOpCode.LayerQueryRelatedRecords">
+            <summary>
+            The LayerQueryRelatedRecords code matches '/layers/{id}/queryRelatedRecords' operation.
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SOI.RestHandlerOpCode.#ctor(System.Int32)">
+            <summary>
+            The RestHandlerOpCode constructor is only used to declare static values above. It is protected so the derived classes can take advantage of it.
+            </summary>
+            <param name="internalValue">Enum-compatibility value to allow using this class in switch statements.</param>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.SOI.RestHandlerOpCode.InternalValue">
+            <summary>
+            The InternalValue property is used to emulate enum cast-to-int compatibility.
+            </summary>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.RestRequestParameters">
+            <summary>
+            TODO summary
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.RestRequestParameters.Capabilities">
+            <summary>
+            TODO
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.RestRequestParameters.ResourceName">
+            <summary>
+            TODO
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.RestRequestParameters.OperationName">
+            <summary>
+            TODO
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.RestRequestParameters.OperationInput">
+            <summary>
+            TODO
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.RestRequestParameters.OutputFormat">
+            <summary>
+            TODO
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.RestRequestParameters.RequestProperties">
+            <summary>
+            TODO
+            </summary>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.SOI.RestSOIHelper">
+            <summary>
+            The RestSOIHelper class is an utility class that helps to implement REST request handling in SOIs.
+            </summary>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.SOI.SOIBase">
+            <summary>
+            The SOIBase class is an utility class. Both RestSOIHelper and SoapSOIHelper derive from this class. It provides general support for the request interception.
+            It is possible to use it directly, but we recommend to use the RestSOIHelper and SoapSOIHelper classes instead as they contain more useful utility methods.
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SOI.SOIBase.#ctor(ESRI.ArcGIS.Server.IServerObjectHelper)">
+            <summary>
+            The SOIBase constructor. If used directly, should be called from the IServerObjectExtension.Init implementaiton.
+            </summary>
+            <param name="soHelper">IServerObjectHelper reference.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SOI.SOIBase.GetRoleInformation(ESRI.ArcGIS.esriSystem.IServerUserInfo)">
+            <summary>
+            Get allowed roles for the user making a request.
+            </summary>
+            <returns>set of roles</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SOI.SOIBase.FindRequestHandlerDelegate``1">
+            <summary>
+            The FindRequestHandlerDelegate is the most important method in SOIBase. 
+            It finds and returns the reference to the proper request handler based on the handler interface type.
+            </summary>
+            <typeparam name="THandlerInterface">Type of the requested handler interface. 
+            Allowed interface types include IRESTRequestHandler, IWebRequestHandler, IRequestHandler2, IRequestHandler.</typeparam>
+            <returns>Requested handler reference or null.</returns>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.SOI.SOIBase.ExtensionCache">
+            <summary>
+            Cache of the active SOEs.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.SOI.SOIBase.ServerObjectHelper">
+            <summary>
+            The ServerObjectHelper property provides access to the IServerObjectHelper reference. It is a read-only property.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.SOI.SOIBase.ServerEnvironment">
+            <summary>
+            The ServerEnvironment property provides access to the IServerEnvironment2 reference. It is a read-only property. 
+            The most common usage of the ServerEnvironment property is to obtain user information from the ServerEnvironment.UserInfo.
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SOI.RestSOIHelper.#ctor(ESRI.ArcGIS.Server.IServerObjectHelper)">
+            <summary>
+            The RestSOIHelper constructor accepts reference to IServerObjectHelper and should be called from the IServerObjectExtension.Init implementation.
+            </summary>
+            <param name="soHelper">Non-null reference to the IServerObjectHelper instance.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SOI.RestSOIHelper.GetFilter(ESRI.ArcGIS.SOESupport.SOI.RestHandlerOpCode)">
+            <summary>
+            GetFilter returns filter set for the REST request or null if there is no filter set.
+            </summary>
+            <param name="opCode">An unique identifier of the REST request specified in RestHandlerOpCode and/or derived types.</param>
+            <returns>Filter of the REST request or null if there is no filter set.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SOI.RestSOIHelper.GetHandlerOpCode(System.String,System.String)">
+            <summary>
+            The GetHandlerOpCode method parses REST resource and operation name parameters and returns corresponding RestHandlerOpCode.
+            </summary>
+            <param name="resourceName">REST resource name passed to HandleRESTRequest</param>
+            <param name="operationName">REST operation name passed to HandleRESTRequest</param>
+            <returns>Value of RestHandlerOpCode or RestHandlerOpCode.DefaultNoOp if resource+operation string pair does not match any pre-defined values of RestHandlerOpCode</returns>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.SOI.RestSOIHelper.FilterMap">
+            <summary>
+            Map of REST request filters for every REST request code.
+            </summary>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.SOI.SoapProxyMethodParameter">
+            <summary>
+            The SoapProxyMethodParameter class describes SOAP request parameter as name-typename pair.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.SOI.SoapProxyMethodParameter.Name">
+            <summary>
+            The name of the SOAP request parameter.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.SOI.SoapProxyMethodParameter.TypeName">
+            <summary>
+            The type of the SOAP request parameter. The type is a SOAP type.
+            </summary>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.SOI.SoapSOIHelper">
+            <summary>
+            The SoapSOIHelper is an utility class that helps to implement SOAP request handling in SOIs.
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SOI.SoapSOIHelper.#ctor(ESRI.ArcGIS.Server.IServerObjectHelper,System.String)">
+            <summary>
+            The SoapSOIHelper constructor should be called from the IServerObjectExtension.Init implementation.
+            </summary>
+            <param name="soHelper">Reference to an instance of the IServerObjectHelper interface.</param>
+            <param name="wsdlFilePath">Full pathname of the WSDL schema file. For example, MapServer SOIs can use the "%lt;Server install path&gt;\\XmlSchema\\MapServer.wsdl".</param>
+        </member>
+        <member name="F:ESRI.ArcGIS.SOESupport.SOI.SoapSOIHelper._mapServerOperationsInformation">
+            <summary>
+            Cache of SOAP operations constructed on class initialization. 
+            </summary>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SOI.SoapSOIHelper.CalculateSOAPOperationInformation(System.String)">
+            <summary>
+            Factory method to create cache of SOAP operations. Called in the SoapSOIHelper constructor.
+            </summary>
+            <param name="pahToMapServerWSDLFile"></param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SOI.SoapSOIHelper.OpenXMLDocument(System.String)">
+            <summary>
+            Opens Xml Document
+            </summary>
+            <param name="filename"></param>
+            <returns>XmlDocument instance</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SOI.SoapSOIHelper.GetSoapOperationParameterName(System.String,System.Int32)">
+            <summary>
+            Gets the name of the SOAP operation parameter by SOAP operation name and parameter index.
+            </summary>
+            <param name="operationName">SOAP operation name.</param>
+            <param name="index">An index of the requested parameter of the SOAP operation.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SOI.SoapSOIHelper.GetSoapOperationParameterTypeName(System.String,System.Int32)">
+            <summary>
+            Gets the typename of the SOAP operation parameter by SOAP operation name and parameter index.
+            </summary>
+            <param name="operationName">SOAP operation name.</param>
+            <param name="index">An index of the requested parameter of the SOAP operation.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SOI.SoapSOIHelper.GetObjectFromXMLSerializeData(System.Int32,System.String,System.String,ESRI.ArcGIS.esriSystem.IXMLSerializeData)">
+            <summary>
+            Retrieves property of the IXmlSerializeData and converts it to managed object by value.
+            </summary>
+            <param name="index">The index of the requested property.</param>
+            <param name="typeNamespace">Type namespace of the requested property. Only makes sense for the complex types.</param>
+            <param name="typeName">SOAP type of the requested property.</param>
+            <param name="data">Reference to source IXMLSerializeData interface.</param>
+            <returns>For simple types like xs:string it will return boxed value as an Object. For ArcGIS enumerations it will return enum value as a boxed string. For complex types it will return boxed object reference.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SOI.SoapSOIHelper.AddObjectToXMLSerializeData(System.String,System.Object,System.String,ESRI.ArcGIS.esriSystem.IXMLSerializeData)">
+            <summary>
+            Adds object to IXmlSerializeData property bag.
+            </summary>
+            <param name="name">Property name.</param>
+            <param name="value">Property value</param>
+            <param name="typeName">SOAP type of the property.</param>
+            <param name="data">Property data as Object.</param>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SOI.SoapSOIHelper.CreateNewIMessage(ESRI.ArcGIS.esriSystem.IMessage)">
+            <summary>
+            Creates new IMessage and sets NamespaceURI and Name properties from the provided originalIMessage.
+            </summary>
+            <param name="originalIMessage">Original IMessage. Must be not null.</param>
+            <returns>Reference to newly created IMessage.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SOI.SoapSOIHelper.ConvertBinaryRequestToMessage(System.Byte[])">
+            <summary>
+            Converts binary SOAP request to the IMessage reference via ArcGIS SOAP deserialization.
+            </summary>
+            <param name="request">Binary request data.</param>
+            <returns>IMessage reference.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SOI.SoapSOIHelper.ConvertStringRequestToMessage(System.String)">
+            <summary>
+            Converts SOAP request string to the IMessage reference via ArcGIS  SOAP deserialization.
+            </summary>
+            <param name="request">String request content.</param>
+            <returns>IMessage reference.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SOI.SoapSOIHelper.ConvertMessageToStringRequest(ESRI.ArcGIS.esriSystem.IMessage)">
+            <summary>
+            Converts IMessage to SOAP string request.
+            </summary>
+            <param name="iMessage">Non-null IMessage reference.</param>
+            <returns>SOAP request as string.</returns>
+        </member>
+        <member name="M:ESRI.ArcGIS.SOESupport.SOI.SoapSOIHelper.ConvertMessageToBinaryRequest(ESRI.ArcGIS.esriSystem.IMessage)">
+            <summary>
+            Converts IMessage to binary SOAP request.
+            </summary>
+            <param name="iMessage">Non-null IMessage reference.</param>
+            <returns>SOAP binary request as an array of bytes</returns>
+        </member>
+        <member name="T:ESRI.ArcGIS.SOESupport.SOI.SoapStringRequest">
+            <summary>
+            Representation of the SOAP request in a string form.
+            </summary>
+        </member>
+        <member name="P:ESRI.ArcGIS.SOESupport.SOI.SoapStringRequest.Body">
+            <summary>
+            Contents of the SOAP string request.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ESRI.Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.esri.com/Desktop/AddIns">
+  <Name>LITSoe2</Name>
+  <AddInID>24e378ae-6ee3-45bc-828b-9f53c67e07fc</AddInID>
+  <Description />
+  <Version>1.0</Version>
+  <Author>rtaig</Author>
+  <Company />
+  <Date>2018-05-09T11:23:49</Date>
+  <Targets>
+    <Target name="Server" version="10.5" />
+  </Targets>
+  <AddIn language="CLR" library="LITSoe3.dll" namespace="LITSoe3">
+    <ServerObjectType>
+      <Name>MapServer</Name>
+      <ExtensionTypes>
+        <ExtensionType id="LITSoe3.LITSoe3" library="LITSoe3.dll" class="LITSoe3.LITSoe3">
+          <Name>LITSoe3</Name>
+          <DisplayName>LITSoe3</DisplayName>
+          <Description />
+          <Properties />
+          <Resources />
+          <Info>
+            <DefaultWebCapabilities />
+            <AllWebCapabilities />
+            <SupportsREST>true</SupportsREST>
+            <SupportsSOAP>false</SupportsSOAP>
+            <hasManagerPropertiesConfigurationPane>false</hasManagerPropertiesConfigurationPane>
+            <SupportsInterceptor>false</SupportsInterceptor>
+          </Info>
+        </ExtensionType>
+      </ExtensionTypes>
+    </ServerObjectType>
+  </AddIn>
+</ESRI.Configuration>
